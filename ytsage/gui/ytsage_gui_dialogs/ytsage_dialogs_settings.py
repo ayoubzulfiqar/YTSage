@@ -229,6 +229,28 @@ class DownloadSettingsDialog(QDialog):
         speed_group_box.setLayout(speed_layout)
         general_layout.addWidget(speed_group_box)
 
+        # --- Connections Section ---
+        connections_group_box = QGroupBox(_("settings.concurrent_fragments", default="Concurrent Connections"))
+        connections_layout = QVBoxLayout()
+
+        self.connections_enabled = ConfigManager.get("concurrent_fragments") or 1
+
+        connections_spin_layout = QHBoxLayout()
+        self.connections_input = QComboBox()
+        self.connections_input.addItems([str(i) for i in range(1, 21)])
+        self.connections_input.setCurrentText(str(self.connections_enabled))
+        connections_spin_layout.addWidget(self.connections_input)
+        connections_spin_layout.addStretch()
+        connections_layout.addLayout(connections_spin_layout)
+
+        connections_help_label = QLabel(_("settings.concurrent_fragments_help", default="Number of connections per download. Higher values bypass throttling but may cause temporary blocks if set too high. Default: 1."))
+        connections_help_label.setWordWrap(True)
+        connections_help_label.setStyleSheet("color: #cccccc; margin: 5px; font-size: 11px;")
+        connections_layout.addWidget(connections_help_label)
+
+        connections_group_box.setLayout(connections_layout)
+        general_layout.addWidget(connections_group_box)
+
         # --- Generic Mode Section ---
         generic_mode_group_box = QGroupBox(_("settings.generic_mode"))
         generic_mode_layout = QVBoxLayout()
@@ -474,6 +496,13 @@ class DownloadSettingsDialog(QDialog):
         """Returns whether generic mode is enabled."""
         return self.generic_mode_checkbox.isChecked()
 
+    def get_concurrent_fragments(self) -> int:
+        """Returns the number of concurrent fragments."""
+        try:
+            return int(self.connections_input.currentText())
+        except ValueError:
+            return 1
+
     def get_preferred_format(self) -> str:
         """Returns the selected preferred format (lowercase)."""
         format_map = {0: "mp4", 1: "webm", 2: "mkv"}
@@ -535,6 +564,7 @@ class DownloadSettingsDialog(QDialog):
         """Override accept to save format settings."""
         try:
             ConfigManager.set("generic_mode", self.get_generic_mode_enabled())
+            ConfigManager.set("concurrent_fragments", self.get_concurrent_fragments())
 
             # Save output format settings
             force_format = self.get_force_format_enabled()
