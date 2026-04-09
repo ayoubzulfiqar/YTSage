@@ -342,7 +342,9 @@
     "filename_format_help": "उपलब्ध चर: %(title)s, %(uploader)s, %(upload_date)s, %(resolution)s, %(id)s, %(ext)s. मानक yt-dlp आउटपुट टेम्प्लेट सिंटैक्स समर्थित है.",
     "tab_general": "सामान्य",
     "tab_format": "प्रारूप",
-    "tab_file": "फ़ाइल"
+    "tab_file": "फ़ाइल",
+    "concurrent_fragments": "Concurrent Connections",
+    "concurrent_fragments_help": "Number of connections per download. Higher values bypass throttling but may cause temporary blocks if set too high. Default: 1."
   },
   "main_ui": {
     "url_placeholder": "YouTube वीडियो या प्लेलिस्ट URL दर्ज करें",

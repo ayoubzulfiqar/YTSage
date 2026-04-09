@@ -342,7 +342,9 @@
     "filename_format_help": "Variáveis disponíveis: %(title)s, %(uploader)s, %(upload_date)s, %(resolution)s, %(id)s, %(ext)s. A sintaxe padrão de modelo de saída do yt-dlp é suportada.",
     "tab_general": "Geral",
     "tab_format": "Formato",
-    "tab_file": "Arquivo"
+    "tab_file": "Arquivo",
+    "concurrent_fragments": "Concurrent Connections",
+    "concurrent_fragments_help": "Number of connections per download. Higher values bypass throttling but may cause temporary blocks if set too high. Default: 1."
   },
   "main_ui": {
     "url_placeholder": "Digite a URL do vídeo ou playlist do YouTube",

@@ -330,7 +330,9 @@
     "filename_format_help": "可用变量: %(title)s, %(uploader)s, %(upload_date)s, %(resolution)s, %(id)s, %(ext)s。支持标准的 yt-dlp 输出模板语法。",
     "tab_general": "一般",
     "tab_format": "格式",
-    "tab_file": "文件"
+    "tab_file": "文件",
+    "concurrent_fragments": "Concurrent Connections",
+    "concurrent_fragments_help": "Number of connections per download. Higher values bypass throttling but may cause temporary blocks if set too high. Default: 1."
   },
   "main_ui": {
     "url_placeholder": "输入 YouTube 视频或播放列表网址",

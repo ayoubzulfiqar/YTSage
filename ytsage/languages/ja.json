@@ -342,7 +342,9 @@
     "filename_format_help": "利用可能な変数: %(title)s, %(uploader)s, %(upload_date)s, %(resolution)s, %(id)s, %(ext)s。標準のyt-dlp出力テンプレート構文がサポートされています。",
     "tab_general": "一般",
     "tab_format": "フォーマット",
-    "tab_file": "ファイル"
+    "tab_file": "ファイル",
+    "concurrent_fragments": "Concurrent Connections",
+    "concurrent_fragments_help": "Number of connections per download. Higher values bypass throttling but may cause temporary blocks if set too high. Default: 1."
   },
   "main_ui": {
     "url_placeholder": "YouTubeの動画URLまたはプレイリストURLを入力",

@@ -342,7 +342,9 @@
     "filename_format_help": "Variabel yang tersedia: %(title)s, %(uploader)s, %(upload_date)s, %(resolution)s, %(id)s, %(ext)s. Sintaks templat keluaran standar yt-dlp didukung.",
     "tab_general": "Umum",
     "tab_format": "Format",
-    "tab_file": "Berkas"
+    "tab_file": "Berkas",
+    "concurrent_fragments": "Concurrent Connections",
+    "concurrent_fragments_help": "Number of connections per download. Higher values bypass throttling but may cause temporary blocks if set too high. Default: 1."
   },
   "main_ui": {
     "url_placeholder": "Masukkan URL video atau playlist YouTube",
