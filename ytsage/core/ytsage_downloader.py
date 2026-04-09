@@ -74,6 +74,7 @@ class DownloadThread(QThread):
         preferred_audio_format="best",
         audio_normalization=False,
         filename_format=None,
+        concurrent_fragments=1,
     ) -> None:
         super().__init__()
         self.url = url
@@ -103,6 +104,7 @@ class DownloadThread(QThread):
         self.preferred_audio_format = preferred_audio_format
         self.audio_normalization = audio_normalization
         self.filename_format = filename_format
+        self.concurrent_fragments = concurrent_fragments
         self.paused: bool = False
         self.cancelled: bool = False
         self.process: Optional[subprocess.Popen] = None
@@ -229,10 +231,15 @@ class DownloadThread(QThread):
 
     def _build_yt_dlp_command(self) -> List[str]:
         """Build the yt-dlp command line with all options for direct execution."""
-        # Use the new yt-dlp path function from ytsage_yt_dlp module
         yt_dlp_path: str = get_yt_dlp_path()
+        # Build the command line array
         cmd: List[str] = [yt_dlp_path]
         logger.debug(f"Using yt-dlp from: {yt_dlp_path}")
+
+        # Add concurrent fragments setting
+        if self.concurrent_fragments:
+            cmd.extend(["-N", str(self.concurrent_fragments)])
+            logger.debug(f"Using {self.concurrent_fragments} concurrent connections")
 
         # Format selection strategy - use format ID if provided or fallback to resolution
         if self.format_id:
@@ -447,6 +454,7 @@ class DownloadThread(QThread):
                     time.sleep(2)
                     self.cleanup_partial_files()
                     self.status_signal.emit(_("download.cancelled"))
+                    self.finished_signal.emit()
                     return
 
                 # Wait if paused
@@ -532,6 +540,7 @@ class DownloadThread(QThread):
                 # Check if it was cancelled
                 if self.cancelled:
                     self.status_signal.emit(_("download.cancelled"))
+                    self.finished_signal.emit()
                 else:
                     # Provide informative error message based on captured output
                     if self.error_lines:
