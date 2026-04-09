@@ -755,6 +755,7 @@ class YTSageApp(QMainWindow, FormatTableMixin, VideoInfoMixin, AnalysisMixin):  
 
         # Get filename format from config
         filename_format = ConfigManager.get("filename_format")
+        concurrent_fragments = ConfigManager.get("concurrent_fragments") or 1
 
         # Create download thread with resolution in output template
         self.download_thread = DownloadThread(
@@ -785,6 +786,7 @@ class YTSageApp(QMainWindow, FormatTableMixin, VideoInfoMixin, AnalysisMixin):  
             preferred_audio_format=self.preferred_audio_format,  # Pass preferred audio format
             audio_normalization=self.audio_normalization,  # Pass audio normalization setting
             filename_format=filename_format,  # Pass the filename format
+            concurrent_fragments=concurrent_fragments, # Pass the concurrent fragments
         )
 
         # Connect signals
