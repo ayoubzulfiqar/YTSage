@@ -87,6 +87,7 @@ class ConfigManager:
         "check_app_updates": True,
         "check_beta_updates": False,
         "last_update_check": 0,
+        "concurrent_fragments": 1,
         "language": "en",
         "ytdlp_channel": "stable",
         "force_output_format": False,
