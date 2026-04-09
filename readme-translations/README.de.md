@@ -308,7 +308,7 @@ Hinweise:
 - **Ausgabeformat erzwingen:** Video-Downloads in ein bestimmtes Containerformat wie `mp4`, `webm` oder `mkv` erzwingen. Verfügbar unter **Download-Einstellungen → Ausgabeformat-Einstellungen**.
 - **Audioformatkonvertierung:** Konvertieren Sie reine Audio-Downloads in bevorzugte Formate wie `AAC`, `MP3`, `FLAC`, `WAV`, `Opus`, `M4A`, `Vorbis` oder `Best`. Verfügbar unter **Download-Einstellungen → Audioformat-Einstellungen**.
 - **Audio-Normalisierung:** Standardisieren Sie die Lautstärke für reine Audio-Downloads mit EBU R128.
-
+- **Gleichzeitige Verbindungen:** Erhöhen Sie die Download-Geschwindigkeit drastisch, indem Sie Dateien gleichzeitig in mehreren Fragmenten herunterladen. Verfügbar in **Download-Einstellungen → Allgemein → Gleichzeitige Verbindungen** (Standard ist 1, empfohlenes Maximum ist 8-10, um IP-Einschränkungen zu vermeiden).\n
 </details>
 
 <details>

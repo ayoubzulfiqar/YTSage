@@ -308,7 +308,7 @@ Notas:
 - **Forçar formato de saída:** Força downloads de vídeo em um formato de contêiner específico, como `mp4`, `webm` ou `mkv`. Disponível em **Configurações de download → Configurações de formato de saída**.
 - **Conversão de formato de áudio:** Converta downloads somente de áudio para formatos preferidos, como `AAC`, `MP3`, `FLAC`, `WAV`, `Opus`, `M4A`, `Vorbis` ou `Best`. Disponível em **Configurações de download → Configurações de formato de áudio**.
 - **Normalização de áudio:** Padronize o volume para downloads somente de áudio usando EBU R128.
-
+- **Conexões Simultâneas:** Aumente a velocidade de download drasticamente baixando arquivos em vários fragmentos simultaneamente. Disponível em **Configurações de Download → Geral → Conexões Simultâneas** (O padrão é 1, o máximo recomendado é 8-10 para evitar bloqueios de IP).\n
 </details>
 
 <details>

@@ -307,7 +307,7 @@ Notlar:
 - **Çıktı Dosya Adı Formatı:** `%(title)s`, `%(uploader)s` ve `%(resolution)s` gibi değişkenleri kullanarak çıktı dosya adı formatını özelleştirin. **İndirme Ayarları → Dosya Adı Formatı**'nda mevcuttur.- **Çıktı Formatını Zorla:** Video indirme işlemlerini `mp4`, `webm` veya `mkv` gibi belirli bir kapsayıcı formatına zorlayın. **İndirme Ayarları → Çıktı Formatı Ayarları** bölümünde mevcuttur.
 - **Ses Formatı Dönüştürme:** Yalnızca ses indirmelerini `AAC`, `MP3`, `FLAC`, `WAV`, `Opus`, `M4A` gibi tercih edilen formatlara dönüştürün `Vorbis` veya `Best`. **İndirme Ayarları → Ses Formatı Ayarları**'nda mevcuttur.
 - **Ses Normalizasyonu:** EBU R128 kullanarak yalnızca ses indirmeleri için ses düzeyini standartlaştırın.
-
+- **Eşzamanlı Bağlantılar:** Dosyaları aynı anda birden fazla parça halinde indirerek indirme hızını önemli ölçüde artırın. **İndirme Ayarları → Genel → Eşzamanlı Bağlantılar** altında mevcuttur (Varsayılan 1, IP kısıtlamasını önlemek için önerilen maksimum 8-10).\n
 </details>
 
 <details>

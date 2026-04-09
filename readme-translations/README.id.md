@@ -308,7 +308,7 @@ Catatan:
 - **Format Output Paksa:** Paksa pengunduhan video ke dalam format wadah tertentu seperti `mp4`, `webm`, atau `mkv`. Tersedia di **Pengaturan Unduhan → Pengaturan Format Output**.
 - **Konversi Format Audio:** Konversi unduhan audio saja ke format pilihan seperti `AAC`, `MP3`, `FLAC`, `WAV`, `Opus`, `M4A`, `Vorbis`, atau `Best`. Tersedia di **Pengaturan Unduhan → Pengaturan Format Audio**.
 - **Normalisasi Audio:** Standarkan volume untuk unduhan audio saja menggunakan EBU R128.
-
+- **Koneksi Bersamaan:** Tingkatkan kecepatan unduhan secara drastis dengan mengunduh file dalam beberapa fragmen secara bersamaan. Tersedia di **Pengaturan Unduhan → Umum → Koneksi Bersamaan** (Bawaan 1, batas maksimum yang disarankan adalah 8-10 untuk mencegah pembatasan IP).\n
 </details>
 
 <details>
