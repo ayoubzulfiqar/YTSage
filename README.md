@@ -309,6 +309,7 @@ Notes:
 - **Force Output Format:** Force video downloads into a specific container format such as `mp4`, `webm`, or `mkv`. Available in **Download Settings → Output Format Settings**.
 - **Audio Format Conversion:** Convert audio-only downloads to preferred formats such as `AAC`, `MP3`, `FLAC`, `WAV`, `Opus`, `M4A`, `Vorbis`, or `Best`. Available in **Download Settings → Audio Format Settings**.
 - **Audio Normalization:** Standardize volume for audio-only downloads using EBU R128.
+- **Concurrent Connections:** Increase download speed dramatically by downloading files in multiple fragments concurrently. Available in **Download Settings → General → Concurrent Connections** (Defaults to 1, recommended maximum is 8-10 to prevent IP limiting).
 
 </details>
 
