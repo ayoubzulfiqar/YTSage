@@ -307,6 +307,9 @@ class FormatTableMixin:
 
             # Quality label with color coding
             quality_label = self.get_quality_label(f)
+            if is_playlist_mode and f.get("vcodec") != "none":
+                quality_label = f"≤ {quality_label}"
+                
             quality_item = QTableWidgetItem(quality_label)
             # Set color based on quality (check multiple language terms)
             quality_lower = quality_label.lower()
@@ -324,6 +327,9 @@ class FormatTableMixin:
             resolution = f.get("resolution") or "N/A"
             if not isinstance(resolution, str):
                 resolution = str(resolution)
+            
+            if is_playlist_mode and f.get("vcodec") != "none" and resolution != "N/A":
+                resolution = f"≤ {resolution}"
 
             if is_playlist_mode:
                 # Column 2 for playlist mode: Resolution

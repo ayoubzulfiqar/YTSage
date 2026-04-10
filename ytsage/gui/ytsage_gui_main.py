@@ -713,12 +713,19 @@ class YTSageApp(QMainWindow, FormatTableMixin, VideoInfoMixin, AnalysisMixin):  
 
         # Get resolution for filename
         resolution = "default"
-        for checkbox in self.format_checkboxes:
-            if checkbox.isChecked():
-                parts = checkbox.text().split("•")
-                if len(parts) >= 1:
-                    resolution = parts[0].strip().lower()
-                break
+        for row in range(self.format_table.rowCount()):
+            cell_widget = self.format_table.cellWidget(row, 0)
+            if cell_widget:
+                cb = cell_widget.layout().itemAt(0).widget()
+                if isinstance(cb, QCheckBox) and cb.isChecked():
+                    if self.is_playlist:
+                        res_item = self.format_table.item(row, 2)
+                    else:
+                        res_item = self.format_table.item(row, 3)
+                    
+                    if res_item and res_item.text() != "N/A":
+                        resolution = res_item.text().replace("≤ ", "").strip()
+                    break
 
         # Get subtitle selection if available - Now get the list
         selected_subs = self.selected_subtitles if hasattr(self, "selected_subtitles") else []
