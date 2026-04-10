@@ -490,7 +490,10 @@ class FormatTableMixin:
             resolution = format_info.get("resolution", "")
             if resolution:
                 try:
-                    height = int(resolution.split("x")[1])
+                    parts = resolution.split("x")
+                    if len(parts) == 2:
+                        # Use the smaller dimension to correctly classify vertical videos
+                        height = min(int(parts[0]), int(parts[1]))
                 except:
                     pass
 
