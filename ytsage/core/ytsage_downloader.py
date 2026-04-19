@@ -302,7 +302,7 @@ class DownloadThread(QThread):
         base_path: str = self.path.as_posix()
         
         # Determine the filename part of the template
-        filename_part = self.filename_format if self.filename_format else "%(title)s_%(resolution)s.%(ext)s"
+        filename_part = self.filename_format if self.filename_format else "%(title)s_%(resolution)s_[%(id)s].%(ext)s"
 
         if self.is_playlist:
             # Create output template with playlist subfolder
