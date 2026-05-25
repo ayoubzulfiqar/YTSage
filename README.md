@@ -468,7 +468,7 @@ We welcome contributions! Here’s how you can help:
 
 - Update the relevant localized README file (e.g., `readme-translations/README.fr.md`)
 - Keep app strings synced by editing `ytsage/languages/<code>.json`
-- If your language is missing, start from `README.md` and create `README.<code>.md`
+- If your language is missing, start from `README.md` and create `readme-translations/README.<code>.md`
 
 <details>
 <summary>📂 Project Structure</summary>
