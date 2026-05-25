@@ -17,20 +17,20 @@ Download videos in any quality, extract audio, fetch subtitles, and more.
 
 ### 🌍 README Languages
 
-English: [EN](../README.md)
-| Arabic: [AR](README.ar.md)
-| German: [DE](README.de.md)
-| Spanish: [ES](README.es.md)
-| French: [FR](README.fr.md)
-| Hindi: [HI](README.hi.md)
-| Indonesian: [ID](README.id.md)
-| Italian: [IT](README.it.md)
-| Japanese: [JA](README.ja.md)
-| Polish: [PL](README.pl.md)
-| Portuguese: [PT](README.pt.md)
-| Russian: [RU](README.ru.md)
-| Turkish: [TR](README.tr.md)
-| Chinese: [ZH](README.zh.md)
+English: [EN](README.md)
+| Arabic: [AR](readme-translations/README.ar.md)
+| German: [DE](readme-translations/README.de.md)
+| Spanish: [ES](readme-translations/README.es.md)
+| French: [FR](readme-translations/README.fr.md)
+| Hindi: [HI](readme-translations/README.hi.md)
+| Indonesian: [ID](readme-translations/README.id.md)
+| Italian: [IT](readme-translations/README.it.md)
+| Japanese: [JA](readme-translations/README.ja.md)
+| Polish: [PL](readme-translations/README.pl.md)
+| Portuguese: [PT](readme-translations/README.pt.md)
+| Russian: [RU](readme-translations/README.ru.md)
+| Turkish: [TR](readme-translations/README.tr.md)
+| Chinese: [ZH](readme-translations/README.zh.md)
 
 <p align="center">
   <a href="#installation">Installation</a> •
@@ -366,13 +366,13 @@ YTSage supports **14 languages** for global accessibility. Select your preferred
 
 | Language | File | Language | File |
 |----------|------|----------|------|
-| 🇺🇸 English | [README.md](README.md) | 🇪🇸 Spanish | [README.es.md](README.es.md) |
-| 🇸🇦 Arabic | [README.ar.md](README.ar.md) | 🇫🇷 French | [README.fr.md](README.fr.md) |
-| 🇩🇪 German | [README.de.md](README.de.md) | 🇮🇳 Hindi | [README.hi.md](README.hi.md) |
-| 🇮🇩 Indonesian | [README.id.md](README.id.md) | 🇮🇹 Italian | [README.it.md](README.it.md) |
-| 🇯🇵 Japanese | [README.ja.md](README.ja.md) | 🇵🇱 Polish | [README.pl.md](README.pl.md) |
-| 🇧🇷 Portuguese | [README.pt.md](README.pt.md) | 🇷🇺 Russian | [README.ru.md](README.ru.md) |
-| 🇹🇷 Turkish | [README.tr.md](README.tr.md) | 🇨🇳 Chinese | [README.zh.md](README.zh.md) |
+| 🇺🇸 English | [README.md](README.md) | 🇪🇸 Spanish | [readme-translations/README.es.md](readme-translations/README.es.md) |
+| 🇸🇦 Arabic | [readme-translations/README.ar.md](readme-translations/README.ar.md) | 🇫🇷 French | [readme-translations/README.fr.md](readme-translations/README.fr.md) |
+| 🇩🇪 German | [readme-translations/README.de.md](readme-translations/README.de.md) | 🇮🇳 Hindi | [readme-translations/README.hi.md](readme-translations/README.hi.md) |
+| 🇮🇩 Indonesian | [readme-translations/README.id.md](readme-translations/README.id.md) | 🇮🇹 Italian | [readme-translations/README.it.md](readme-translations/README.it.md) |
+| 🇯🇵 Japanese | [readme-translations/README.ja.md](readme-translations/README.ja.md) | 🇵🇱 Polish | [readme-translations/README.pl.md](readme-translations/README.pl.md) |
+| 🇧🇷 Portuguese | [readme-translations/README.pt.md](readme-translations/README.pt.md) | 🇷🇺 Russian | [readme-translations/README.ru.md](readme-translations/README.ru.md) |
+| 🇹🇷 Turkish | [readme-translations/README.tr.md](readme-translations/README.tr.md) | 🇨🇳 Chinese | [readme-translations/README.zh.md](readme-translations/README.zh.md) |
 
 > 💡 **Want to contribute a translation?** Check out the [Contributing](#contributing) section to help us add more languages!
 
