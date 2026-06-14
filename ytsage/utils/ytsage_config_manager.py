@@ -96,6 +96,8 @@ class ConfigManager:
         "preferred_audio_format": "best",
         "audio_normalization": False,
         "filename_format": "%(title)s_%(resolution)s_[%(id)s].%(ext)s",
+        "window_geometry": None,
+        "window_state": None,
         "cached_versions": {
             "ytdlp": {"version": None, "path": None, "last_check": 0, "path_mtime": 0},
             "ffmpeg": {"version": None, "path": None, "last_check": 0, "path_mtime": 0},

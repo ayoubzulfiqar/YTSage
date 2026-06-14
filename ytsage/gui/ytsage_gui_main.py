@@ -272,6 +272,7 @@ class YTSageApp(QMainWindow, FormatTableMixin, VideoInfoMixin, AnalysisMixin):  
         self.player.setAudioOutput(self.audio_output)
 
         self.init_ui()
+        self._load_window_state()
         
         # Defer heavy start-up tasks to ensure UI renders immediately
         QTimer.singleShot(100, self._perform_startup_checks)
@@ -290,6 +291,22 @@ class YTSageApp(QMainWindow, FormatTableMixin, VideoInfoMixin, AnalysisMixin):  
         # Initialize UI state based on current mode
         self.handle_mode_change()
 
+    def _load_window_state(self):
+        """Restore previous window geometry and state from config."""
+        from PySide6.QtCore import QByteArray
+        geo_b64 = ConfigManager.get("window_geometry")
+        if geo_b64:
+            try:
+                self.restoreGeometry(QByteArray.fromBase64(geo_b64.encode("ascii")))
+            except Exception as e:
+                logger.debug(f"Failed to restore geometry: {e}")
+        
+        state_b64 = ConfigManager.get("window_state")
+        if state_b64:
+            try:
+                self.restoreState(QByteArray.fromBase64(state_b64.encode("ascii")))
+            except Exception as e:
+                logger.debug(f"Failed to restore state: {e}")
 
     def _perform_startup_checks(self):
         """Perform potentially blocking startup checks after UI is shown."""
@@ -1193,6 +1210,13 @@ class YTSageApp(QMainWindow, FormatTableMixin, VideoInfoMixin, AnalysisMixin):  
                     logger.warning("Force terminating download thread...")
                     self.current_download.terminate()
                     self.current_download.wait(1000)  # Wait for termination
+
+            # Save the window size and state
+            try:
+                ConfigManager.set("window_geometry", self.saveGeometry().toBase64().data().decode("ascii"))
+                ConfigManager.set("window_state", self.saveState().toBase64().data().decode("ascii"))
+            except Exception as w_e:
+                logger.debug(f"Failed to save window state: {w_e}")
 
             logger.info("Application closing...")
             event.accept()
