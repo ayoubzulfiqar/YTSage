@@ -259,7 +259,10 @@ class YTSageApp(QMainWindow, FormatTableMixin, VideoInfoMixin, AnalysisMixin):  
         self.force_audio_format = ConfigManager.get("force_audio_format") or False
         self.preferred_audio_format = ConfigManager.get("preferred_audio_format") or "best"
         self.audio_normalization = ConfigManager.get("audio_normalization") or False
-        self.generic_mode_enabled = ConfigManager.get("generic_mode") or False
+        
+        generic_val = ConfigManager.get("generic_mode")
+        self.generic_mode_enabled = generic_val if generic_val is not None else True
+        
         # Track if video analysis is completed
         self.analysis_completed = False
 
