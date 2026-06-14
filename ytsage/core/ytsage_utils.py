@@ -402,25 +402,26 @@ def load_saved_path(main_window_instance: Any) -> None:
         main_window_instance.last_path = tempfile.gettempdir()
 
 
+from ..utils.ytsage_config_manager import ConfigManager
+
 def save_path(main_window_instance: Any, path: Union[str, Path]) -> bool:
     """Save download path with enhanced error handling."""
     try:
         # Verify the path is valid and writable
-        if not Path(path).exists():
+        path_str = str(path)
+        if not Path(path_str).exists():
             try:
-                Path(path).mkdir(exist_ok=True)
+                Path(path_str).mkdir(parents=True, exist_ok=True)
             except Exception as e:
-                logger.exception(f"Error creating directory: {e}")
+                logger.error(f"Error creating directory: {e}")
                 return False
 
-        if not os.access(path, os.W_OK):
-            logger.info("Path is not writable")
+        if not os.access(path_str, os.W_OK):
+            logger.error("Path is not writable")
             return False
 
-        # Save the config
-        config = {"download_path": path}
-        with open(APP_CONFIG_FILE, "w", encoding="utf-8") as f:
-            json.dump(config, f, ensure_ascii=False)
+        # Save the config using ConfigManager
+        ConfigManager.set("download_path", path_str)
         return True
 
     except Exception as e:
