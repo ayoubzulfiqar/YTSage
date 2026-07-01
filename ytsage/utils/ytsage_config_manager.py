@@ -71,7 +71,7 @@ class ConfigManager:
     _settings: Dict[str, Any] = {}
     _default_config: Dict[str, Any] = {
         "download_path": str(USER_HOME_DIR / "Downloads"),
-        "generic_mode": False,
+        "generic_mode": True,
         "speed_limit_value": None,
         "speed_limit_unit_index": 0,
         "cookie_source": "browser",  # "browser" or "file"
@@ -96,6 +96,8 @@ class ConfigManager:
         "preferred_audio_format": "best",
         "audio_normalization": False,
         "filename_format": "%(title)s_%(resolution)s_[%(id)s].%(ext)s",
+        "window_geometry": None,
+        "window_state": None,
         "cached_versions": {
             "ytdlp": {"version": None, "path": None, "last_check": 0, "path_mtime": 0},
             "ffmpeg": {"version": None, "path": None, "last_check": 0, "path_mtime": 0},

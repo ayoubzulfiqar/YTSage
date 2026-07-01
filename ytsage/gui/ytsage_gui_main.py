@@ -249,8 +249,9 @@ class YTSageApp(QMainWindow, FormatTableMixin, VideoInfoMixin, AnalysisMixin):  
         # Initialize proxy settings from config
         self.proxy_url = ConfigManager.get("proxy_url")
         self.geo_proxy_url = ConfigManager.get("geo_proxy_url")
-        self.speed_limit_value = None  # Store speed limit value
-        self.speed_limit_unit_index = 0  # Store speed limit unit index (0: KB/s, 1: MB/s)
+        # Initialize speed limit settings from config
+        self.speed_limit_value = ConfigManager.get("speed_limit_value")  # Store speed limit value
+        self.speed_limit_unit_index = ConfigManager.get("speed_limit_unit_index") or 0  # Store speed limit unit index (0: KB/s, 1: MB/s)
         self.download_section = None
         self.force_keyframes = False
         # Initialize output format settings
@@ -259,7 +260,10 @@ class YTSageApp(QMainWindow, FormatTableMixin, VideoInfoMixin, AnalysisMixin):  
         self.force_audio_format = ConfigManager.get("force_audio_format") or False
         self.preferred_audio_format = ConfigManager.get("preferred_audio_format") or "best"
         self.audio_normalization = ConfigManager.get("audio_normalization") or False
-        self.generic_mode_enabled = ConfigManager.get("generic_mode") or False
+        
+        generic_val = ConfigManager.get("generic_mode")
+        self.generic_mode_enabled = generic_val if generic_val is not None else True
+        
         # Track if video analysis is completed
         self.analysis_completed = False
 
@@ -269,6 +273,7 @@ class YTSageApp(QMainWindow, FormatTableMixin, VideoInfoMixin, AnalysisMixin):  
         self.player.setAudioOutput(self.audio_output)
 
         self.init_ui()
+        self._load_window_state()
         
         # Defer heavy start-up tasks to ensure UI renders immediately
         QTimer.singleShot(100, self._perform_startup_checks)
@@ -287,6 +292,22 @@ class YTSageApp(QMainWindow, FormatTableMixin, VideoInfoMixin, AnalysisMixin):  
         # Initialize UI state based on current mode
         self.handle_mode_change()
 
+    def _load_window_state(self):
+        """Restore previous window geometry and state from config."""
+        from PySide6.QtCore import QByteArray
+        geo_b64 = ConfigManager.get("window_geometry")
+        if geo_b64:
+            try:
+                self.restoreGeometry(QByteArray.fromBase64(geo_b64.encode("ascii")))
+            except Exception as e:
+                logger.debug(f"Failed to restore geometry: {e}")
+        
+        state_b64 = ConfigManager.get("window_state")
+        if state_b64:
+            try:
+                self.restoreState(QByteArray.fromBase64(state_b64.encode("ascii")))
+            except Exception as e:
+                logger.debug(f"Failed to restore state: {e}")
 
     def _perform_startup_checks(self):
         """Perform potentially blocking startup checks after UI is shown."""
@@ -659,6 +680,9 @@ class YTSageApp(QMainWindow, FormatTableMixin, VideoInfoMixin, AnalysisMixin):  
                 logger.info(
                     f"Speed limit updated to: {self.speed_limit_value} {['KB/s', 'MB/s'][self.speed_limit_unit_index] if self.speed_limit_value else 'None'}"
                 )
+                # Save speed limit settings to config
+                ConfigManager.set("speed_limit_value", self.speed_limit_value)
+                ConfigManager.set("speed_limit_unit_index", self.speed_limit_unit_index)
 
             # Update Output Format Settings
             new_force_format = dialog.get_force_format_enabled()
@@ -1190,6 +1214,13 @@ class YTSageApp(QMainWindow, FormatTableMixin, VideoInfoMixin, AnalysisMixin):  
                     logger.warning("Force terminating download thread...")
                     self.current_download.terminate()
                     self.current_download.wait(1000)  # Wait for termination
+
+            # Save the window size and state
+            try:
+                ConfigManager.set("window_geometry", self.saveGeometry().toBase64().data().decode("ascii"))
+                ConfigManager.set("window_state", self.saveState().toBase64().data().decode("ascii"))
+            except Exception as w_e:
+                logger.debug(f"Failed to save window state: {w_e}")
 
             logger.info("Application closing...")
             event.accept()

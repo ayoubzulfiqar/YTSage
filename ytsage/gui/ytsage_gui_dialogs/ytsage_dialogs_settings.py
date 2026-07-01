@@ -255,7 +255,8 @@ class DownloadSettingsDialog(QDialog):
         generic_mode_group_box = QGroupBox(_("settings.generic_mode"))
         generic_mode_layout = QVBoxLayout()
 
-        self.generic_mode_enabled = ConfigManager.get("generic_mode") or False
+        generic_val = ConfigManager.get("generic_mode")
+        self.generic_mode_enabled = generic_val if generic_val is not None else True
 
         self.generic_mode_checkbox = QCheckBox(_("settings.enable_generic_mode"))
         self.generic_mode_checkbox.setChecked(self.generic_mode_enabled)
