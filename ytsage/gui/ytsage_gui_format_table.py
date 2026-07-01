@@ -22,6 +22,34 @@ class FormatTableMixin:
         text_width = font_metrics.horizontalAdvance(label)
         return max(text_width + padding, min_width)
 
+    def _get_audio_codec_display(self, format_info: dict) -> str:
+        """
+        Generate a display string for audio codec information.
+        Highlights EAC3/AC3 and other surround sound formats with channel info.
+        """
+        acodec = format_info.get("acodec")
+        if not acodec or acodec == "none":
+            return "N/A"
+        
+        channels = format_info.get("audio_channels")
+        abr = format_info.get("abr")
+        
+        # Build codec string
+        codec_str = str(acodec)
+        
+        # Add channel info for surround sound formats
+        if channels:
+            codec_str += f" ({channels}ch)"
+        
+        # Add bitrate if available
+        if abr and isinstance(abr, (int, float)):
+            if abr >= 1000:
+                codec_str += f" {abr/1000:.1f}Mbps"
+            else:
+                codec_str += f" {int(abr)}kbps"
+        
+        return codec_str
+
     def _apply_column_widths(self, header_labels: list[str], is_playlist_mode: bool = False) -> None:
         """Apply responsive column widths to format table."""
         self = cast("YTSageApp", self)
@@ -209,7 +237,8 @@ class FormatTableMixin:
             for f in self.all_formats
             if (f.get("vcodec") == "none" or "audio only" in str(f.get("format_note") or "").lower())
             and f.get("acodec") != "none"
-            and f.get("filesize") is not None
+            # Removed filesize requirement - many audio-only formats (including EAC3/AC3) may not have filesize in yt-dlp output
+            # Include all audio formats to detect EAC3/AC3 and other surround sound codecs
         ]
 
         # Sort formats by quality
@@ -399,14 +428,41 @@ class FormatTableMixin:
 
             # Audio Status column
             needs_audio = f.get("acodec") == "none" and f.get("vcodec") != "none"
-            audio_status = _("formats.will_merge_audio") if needs_audio else (_("formats.has_audio") if f.get("vcodec") != "none" else _("formats.audio_only"))
-            audio_item = QTableWidgetItem(audio_status)
+            acodec = f.get("acodec")
+            
+            # Enhanced audio status with support for surround sound formats (EAC3/AC3)
             if needs_audio:
-                audio_item.setForeground(QColor("#ffa500"))
-            elif audio_status == _("formats.audio_only"):
-                audio_item.setForeground(QColor("#cccccc"))
+                audio_status = _("formats.will_merge_audio")
+                audio_color = QColor("#ffa500")
+            elif f.get("vcodec") != "none":
+                # Video format with audio
+                if acodec in ["ac3", "eac3"]:
+                    # Highlight surround sound codecs
+                    channels = f.get("audio_channels", "")
+                    if channels:
+                        audio_status = f"{_('formats.has_audio')} - {acodec.upper()} {channels}ch"
+                    else:
+                        audio_status = f"{_('formats.has_audio')} - {acodec.upper()}"
+                    audio_color = QColor("#00ccff")  # Cyan for surround sound
+                else:
+                    audio_status = _("formats.has_audio")
+                    audio_color = QColor("#00cc00")
             else:
-                audio_item.setForeground(QColor("#00cc00"))
+                # Audio-only format
+                if acodec in ["ac3", "eac3"]:
+                    # Highlight surround sound audio-only
+                    channels = f.get("audio_channels", "")
+                    if channels:
+                        audio_status = f"{acodec.upper()} {channels}ch"
+                    else:
+                        audio_status = acodec.upper()
+                    audio_color = QColor("#00ccff")  # Cyan for surround sound
+                else:
+                    audio_status = _("formats.audio_only")
+                    audio_color = QColor("#cccccc")
+            
+            audio_item = QTableWidgetItem(audio_status)
+            audio_item.setForeground(audio_color)
             audio_column_index = 5 if is_playlist_mode else 6
             self.format_table.setItem(row, audio_column_index, audio_item)
 
@@ -421,11 +477,22 @@ class FormatTableMixin:
 
                 # Column 5: Codec
                 if f.get("vcodec") == "none":
+                    # Audio-only format - display codec with channel info
                     codec = str(f.get("acodec") or "N/A")
+                    # Add audio channel information if available (e.g., for 5.1 detection)
+                    channels = f.get("audio_channels")
+                    if channels:
+                        codec += f" ({channels}ch)"
                 else:
+                    # Video format - display video codec and audio codec if present
                     codec = str(f.get("vcodec") or "N/A")
                     if f.get("acodec") != "none":
-                        codec += f" / {str(f.get('acodec') or 'N/A')}"
+                        acodec = str(f.get("acodec") or "N/A")
+                        # Add audio channel info for video with audio
+                        channels = f.get("audio_channels")
+                        if channels:
+                            acodec += f" ({channels}ch)"
+                        codec += f" / {acodec}"
                 self.format_table.setItem(row, 5, QTableWidgetItem(codec))
 
                 # Column 7: FPS (Frame Rate)
