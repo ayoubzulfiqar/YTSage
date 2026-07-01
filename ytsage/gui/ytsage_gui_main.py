@@ -249,8 +249,9 @@ class YTSageApp(QMainWindow, FormatTableMixin, VideoInfoMixin, AnalysisMixin):  
         # Initialize proxy settings from config
         self.proxy_url = ConfigManager.get("proxy_url")
         self.geo_proxy_url = ConfigManager.get("geo_proxy_url")
-        self.speed_limit_value = None  # Store speed limit value
-        self.speed_limit_unit_index = 0  # Store speed limit unit index (0: KB/s, 1: MB/s)
+        # Initialize speed limit settings from config
+        self.speed_limit_value = ConfigManager.get("speed_limit_value")  # Store speed limit value
+        self.speed_limit_unit_index = ConfigManager.get("speed_limit_unit_index") or 0  # Store speed limit unit index (0: KB/s, 1: MB/s)
         self.download_section = None
         self.force_keyframes = False
         # Initialize output format settings
@@ -679,6 +680,9 @@ class YTSageApp(QMainWindow, FormatTableMixin, VideoInfoMixin, AnalysisMixin):  
                 logger.info(
                     f"Speed limit updated to: {self.speed_limit_value} {['KB/s', 'MB/s'][self.speed_limit_unit_index] if self.speed_limit_value else 'None'}"
                 )
+                # Save speed limit settings to config
+                ConfigManager.set("speed_limit_value", self.speed_limit_value)
+                ConfigManager.set("speed_limit_unit_index", self.speed_limit_unit_index)
 
             # Update Output Format Settings
             new_force_format = dialog.get_force_format_enabled()
